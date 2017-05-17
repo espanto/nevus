@@ -1,0 +1,585 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       CARREGA DE LA CLASSE DE DOCUMENT                      %
+%                                                                             %
+% Les opcions admissibles son:                                                %
+%      12pt / 11pt            (cos dels tipus de lletra; no feu servir 10pt)  %
+%                                                                             %
+% catalan/spanish/english     (llengua principal del treball)                 %
+%                                                                             % 
+% french/italian/german...    (si necessiteu fer servir alguna altra llengua) %
+%                                                                             %
+% listoffigures               (El document inclou un Index de figures)        %
+% listoftables                (El document inclou un Index de taules)         %
+% listofquadres               (El document inclou un Index de quadres)        %
+% listofalgorithms            (El document inclou un Index d'algorismes)      %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,spanish,listoffigures,listoftables]{tfgetsinf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     CODIFICACIO DEL FITXER FONT                             %
+%                                                                             %
+%    windows fa servir normalment 'ansinew'                                   %
+%    amb linux es possible que siga 'latin1' o 'latin9'                       %
+%    Pero el mes recomanable es fer servir utf8 (unicode 8)                   %
+%                                          (si el vostre editor ho permet)    % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc} 
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{placeins}
+
+\graphicspath{{/Users/sun/Documents/masterBigData/proyecto/memoria/plots/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                        ALTRES PAQUETS I DEFINICIONS                         %
+%                                                                             %
+% Carregueu aci els paquets que necessiteu i declareu les comandes i entorns  %
+%                                          (aquesta seccio pot ser buida)     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                        DADES DEL TREBALL                                    %
+%                                                                             %
+% titol, alumne, tutor i curs academic                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{NEVUS \\
+				}
+\author{Pilar S\'aez Hern\'andez}
+\tutor{Jon Ander G\'omez \\ Eduardo Nagore\\ Jos\'e Miguel Carot}
+\curs{2016-2017}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     PARAULES CLAU/PALABRAS CLAVE/KEY WORDS                  %
+%                                                                             %
+% Independentment de la llengua del treball, s'hi han d'incloure              %
+% les paraules clau i el resum en els tres idiomes                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\keywords{????, ?????????, ????, ?????????????????} % Paraules clau 
+         {Aprendizaje Autom\'atico, Redes neuronales, vectores de soporte}              % Palabras clave
+         {Machine Learning, Artificial Neural Networks, Support Vector Machine}        % Key words
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              INICI DEL DOCUMENT                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% Next three lines are for put at the top elements with [t!]
+%
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%              RESUMS DEL TFG EN VALENCIA, CASTELLA I ANGLES                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+????
+\end{abstract}
+\begin{abstract}[spanish]
+????
+\end{abstract}
+\begin{abstract}[english]
+????
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              CONTINGUT DEL TREBALL                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                  INTRODUCCIO                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introducci\'on}
+
+El c\'ancer de piel es uno de los m\'as comunes a nivel mundial, el cual viene experimentando un importante aumento en pa\'ises desarrollados desde los a\~nos cincuenta en paises desarrollados. Este crecimiento est\'a motivado especialmente por la exposici\'on solar.  Pero adem\'as existen otros motivos que intervienen en el desarrollo de la enfermedad, como son la informaci\'on gen\'etica, fenot\'ipica y otras caracter\'isticas del paciente, sin olvidar algunos factores del entorno. \newline \newline
+Dentro del t\'ermino C\'ancer de piel se engloban diferentes tipos de tumor, cada uno de los cuales tiene s\'intomas, tratamientos y gravedad diferentes. 
+\begin{itemize}
+\item {Carcinoma Basocelular: Es el tipo de c\'ancer de piel m\'as frecuente y el menos peligroso, dado que es excepcional que desarrolle met\'astasis.}
+\item{Carcinoma escamoso o espinocelular: Es el segundo tipo de c\'ancer de piel m\'as com\'un.}
+\item{Queratosis Act\'inica: Lesiones precancerosas}
+\item{Melanoma: El tipo de c\'ancer de piel m\'as peligroso}
+\end{itemize}
+Por otro lado las t\'ecnicas de clasificaci\'on automatizada y la b\'usqueda de patrones en pacientes con patolog\'ias de este tipo puede ayudar a la detecci\'on precoz y en la aplicaci\'on de tratramientos adecuados para la enfermedad.
+\section{Motivaci\'on}
+En este trabajo nos centraremos en pacientes enfermos de melanoma, que aunque es el menos com\'un de los tipos de c\'ancer citados, es el m\'as peligroso por su riesgo de met\'astasis, en cuyo caso es determinante el r\'apido diagn\'ostico.\newline
+El melanoma representa menos del 5\% de los casos de c\'ancer de piel, pero es la causa de la mayor\'ia de muertes.\newline
+Se dispone de informaci\'on de 844 pacientes diagnosticados de melanoma. La informaci\'on de la que disponemos se comprende de caracter\'isticas generales como la edad, el sexo, datos de fenotipo como el tipo de piel,el  color de pelo o color de ojos. Tambi\'en se dispone de algunos datos propios del melanoma como la localizaci\'on y la profundidad, adem\'as de informaci\'on gen\'etica relacionada con la pigmentaci\'on, la nevog\'enica y sensibilidad a la exposici\'on solar.
+
+\section{Objetivos}
+Es conocido que la mutaci\'on en el gen BRAF est\'a presente en un 66\% de los casos de melanoma mientras que la frecuencia en otros tipos de c\'ancer no es tan elevada. Este gen elabora la prote\'ina que participa en el env\'io de se\~nales en las c\'elulas y en su crecimiento.\newline
+El objetivo principal que nos ocupa es determinar que variables participan en desencadenar la mutaci\'on espec\'ifica (cambio) en el gen BRAF.
+
+\section{Estructura de la mem\'oria}
+
+????? ????????????? ????????????? ????????????? ????????????? ????????????? 
+
+%\section{Notes bibliografiques} %%%%% Opcional
+
+%????? ????????????? ????????????? ????????????? ????????????? ?????????????
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         CAPITOLS (tants com calga)                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{??? ???? ??????}
+
+????? ????????????? ????????????? ????????????? ????????????? ?????????????
+
+\section{?? ???? ???? ? ?? ??}
+
+????? ????????????? ????????????? ????????????? ????????????? ?????????????
+
+
+\chapter{An\'alisis}
+
+En el presente cap\'itulo se analiza el problema planteado, empezando por el desglose de la informaci\'on de la que se dispone y continuando por su estructuraci\'on con un enfoque encaminado a la resoluci\'on de los objetivos concretados.
+
+\section{An\'alisis del dataset}
+
+Se dispone de un dataset con informaci\'on de 1509 pacientes diagnosticados de c\'ancer de piel. Los cuales han sido sometidos a intervenci\'on por melanoma al menos una vez.
+De cada paciente se dispone de un total de 136 variables, de las que 104 pertenecen a informaci\'on gen\'etica, 30 incluyen datos identificat\'ivos, de fenotipo, de melanoma u otros datos de inter\'es propios del paciente y las 2 restantes nos indican si se ha desarrollado mutaci\'on BRAF y NRAS.\newline
+Como en cualquier colecci\'on de datos reales existen datos faltantes, ya sea por incorporaci\'on posterior de nuevas variables o por desconocimiento del paciente.
+
+A continuaci\'on se describe la informaci\'on que nos ofrece cada una de las variables:
+
+\begin{itemize}
+\item \textbf{Sexo}	1:Male,2:Female	
+\item \textbf{Edad:} Edad en el momento de la intervenci\'on, EdadGrupo: 0-21,21-32,33-42,43-52,53-64,+65
+\item \textbf{Fototipo:} es la capacidad de la piel para asimilar la radiaci\'on solar. Su clasificaci\'on 
+oscila entre 1 y 5 en nuetro caso	
+\item \textbf{Ojos R}	Color de ojos. Valores entre 1 y 4	
+\item \textbf{Pelo R}	Color de pelo, valores entre 1 y 3	
+\item \textbf{Quemintcod}	Quemaduras graves Valores entre 1 y 4	
+\item \textbf{QareaMM} Quemaduras en el \'area del melanoma.	Valores entre 1 y 3	
+\item \textbf{A\~nossolprof}	N\'umero de a\~nos de exposici\'on al sol por profesi\'on	
+\item \textbf{A\~nospaquete} Paquetes de tabaco fumados por a\~no.	
+\item \textbf{Ef\'elides en inf} Pecas	1:No,2:S\'i	
+\item \textbf{L\'entigos}	1:No,2:S\'i	
+\item \textbf{L\'entigos en \'area de MM}	1:No,2:S\'i
+\item \textbf{Segtumor}	Segundo tumor (no cut\'aneo) 1:No,2:S\'i
+\item \textbf{CBC}	1:No,2:S\'i Carcinoma basocelular
+\item \textbf{CEC}	1:No,2:S\'i  Carcinoma epidermoide cut\'aneo
+\item \textbf{Angiomas sen}	Angiomas. Tumores benignos de color rojizo. Valores de 1 a 6 	
+\item \textbf{Q seborreicas}	Queratosis seborreica. Valores de 1 a 6	
+\item \textbf{Nevmult}	Nevus m\'ultiple. Valores entre 1 y 4	
+\item \textbf{Nevus at\'ipicos}	N\'umero de nevus at\'ipicos	
+\item \textbf{MMM} M\'ultiples melanomas	1:No,2:S\'i 	
+\item \textbf{Foto loc} Relaci\'on entre la exposici\'on solar y la localizaci\'on del melanoma. Valores entre 1 y 3	. 1: Cr\'itica,2: Intermedia, 3: Nula
+\item \textbf{Locali5} Localizaci\'on del melanoma	Valores entre 1 y 5	
+\item \textbf{TipoHX}	Valores entre 1 y 5 Histiocistosis X??	
+\item \textbf{Breslow}	Medida Breslow de profundidad de melanoma	
+\item \textbf{Ulceraci\'on}	1:No,2:S\'i	
+\item \textbf{Infiltintrat} Linfocitos intratumorales 	Valores entre 1 y 3 (Limpiar 77)	
+\item \textbf{Nevuspre}	1:No,2:S\'i Nevus pre??	
+\item \textbf{ElastosisHx}	1:No,2:S\'i Degeneraci\'on de la piel (por exposici\'on solar, envejecimiento,?)
+\item \textbf{CSD}	1:No,2:S\'i ??	
+\item \textbf{BRAFmut} Mutaci\'on en el gen BRAF
+\item \textbf{NRASmut} Mutaci\'on en el gen NRAS
+\end{itemize}
+
+
+\chapter{Aplicaci\'on de t\'ecnicas de aprendizaje autom\'atico sobre los datos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 SUPPORT VECTOR MACHINE                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Support Vector Machine}
+Aplicamos el algoritmo SVM utilizando el kernel Radial Basis Functions (rbf) y dividimos los datos en training y test.\newline
+
+\begin{table}[h]
+
+\subsection{Mutaci\'on BRAF}
+En la siguiente tabla, 220 muestras tienen la mutaci\'on de un total de 568 muestras de training : 38.732\% 
+      0 missclassified samples of 568 Accuracy = 100.0\%
+
+\caption{Resultados de aplicar SVM sobre el trainning set }
+\begin{tabular}{l*{3}{c}r}
+              & precision   & recall  &f1-score   &support\\
+\hline
+No Mutation & 1 & 1 & 1 &  348\\
+Mutation & 1 & 1 & 1 &  220\\
+\hline
+avg / total & 1 & 1 & 1 &  568\\
+\end{tabular}
+\newline
+\newline
+\newline
+En la siguiente tabla, 72 muestras tienen la mutaci\'on de un total de 190 muestras de testing : 37.895\% 
+      66 missclassified samples of 190 Accuracy = 65.3\%
+
+
+\caption{Resultados de aplicar SVM sobre el test set}
+\begin{tabular}{l*{3}{c}r}
+              & precision   & recall  &f1-score   &support\\
+\hline
+No Mutation &  0.68 & 0.82 & 0.75&  118\\
+Mutation &  0.56 & 0.38 & 0.45 &  72\\
+\hline
+avg / total & 0.64 & 0.65 & 0.63 &  190\\
+\end{tabular}
+\end{table}
+\clearpage
+
+\begin{table}[t]
+
+\subsection{Mutaci\'on NRAS}
+
+En la siguiente tabla, 63 muestras tienen la mutaci\'on de un total de 568 muestras de training : 11.092\% 
+      4 missclassified samples of 568 Accuracy = 99.3\%
+
+\caption{Resultados de aplicar SVM sobre el trainning set }
+\begin{tabular}{l*{3}{c}r}
+              & precision   & recall  &f1-score   &support\\
+\hline
+No Mutation & 1 & 0.99 & 1 &  348\\
+Mutation & 0.94 & 1 & 0.97 &  220\\
+\hline
+avg / total & 0.99 & 0.99 & 0.99 &  568\\
+\end{tabular}
+\newline
+\newline
+En la siguiente tabla, 21 muestras tienen la mutaci\'on de un total de 190 muestras de testing : 11.053\% 
+      20 missclassified samples of 190 Accuracy = 89.5\%
+
+
+\caption{Resultados de aplicar SVM sobre el test set}
+\begin{tabular}{l*{3}{c}r}
+              & precision   & recall  &f1-score   &support\\
+\hline
+No Mutation &  0.89 & 1 & 0.94&  118\\
+Mutation &  1 & 0.05 & 0.09 &  72\\
+\hline
+avg / total & 0.91 & 0.89 & 0.85 &  190\\
+\end{tabular}
+\end{table}
+
+ \begin{table}
+ \begin{tabular}{l*{5}{c}r}
+ kernel & degree & gamma & C & Accuracy\\
+ \hline
+ rbf & 1 & 0.100000 & 1.000000e-03 & 54.7\%\\
+ rbf & 1 & 0.100000 & 1.000000e-02 & 54.7\%\\
+ rbf & 1 & 0.100000 & 1.000000e-01 & 54.7\%\\
+ rbf & 1 & 0.100000 & 1.000000e+00 & 62.6\%\\
+ rbf & 1 & 0.100000 & 1.000000e+01 & 66.3\%\\
+ rbf & 1 & 0.100000 & 1.000000e+02 & 66.3\%\\
+ rbf & 1 & 0.100000 & 1.000000e+03 & 66.3\%\\
+ rbf & 1 & 1.000000 & 1.000000e-03 & 54.7\%\\
+ rbf & 1 & 1.000000 & 1.000000e-02 & 54.7\%\\
+ rbf & 1 & 1.000000 & 1.000000e-01 & 54.7\%\\
+ rbf & 1 & 1.000000 & 1.000000e+00 & 60.0\%\\
+ rbf & 1 & 1.000000 & 1.000000e+01 & 60.0\%\\
+ rbf & 1 & 1.000000 & 1.000000e+02 & 60.0\%\\
+ rbf & 1 & 1.000000 & 1.000000e+03 & 60.0\%\\
+ rbf & 1 & 2.000000 & 1.000000e-03 & 54.7\%\\
+ rbf & 1 & 2.000000 & 1.000000e-02 & 54.7\%\\
+ rbf & 1 & 2.000000 & 1.000000e-01 & 54.7\%\\
+ rbf & 1 & 2.000000 & 1.000000e+00 & 60.0\%\\
+ rbf & 1 & 2.000000 & 1.000000e+01 & 60.0\%\\
+ rbf & 1 & 2.000000 & 1.000000e+02 & 60.0\%\\
+ rbf & 1 & 2.000000 & 1.000000e+03 & 60.0\%\\
+ linear & 1 & 0.100000 & 1.000000e-03 & 54.7\%\\
+ linear & 1 & 0.100000 & 1.000000e-02 & 54.7\%\\
+ linear & 1 & 0.100000 & 1.000000e-01 & 64.2\%\\
+ linear & 1 & 0.100000 & 1.000000e+00 & 62.1\%\\
+ linear & 1 & 0.100000 & 1.000000e+01 & 60.0\%\\
+ linear & 1 & 0.100000 & 1.000000e+02 & 60.5\%\\
+ linear & 1 & 0.100000 & 1.000000e+03 & 60.5\%\\
+ linear & 1 & 1.000000 & 1.000000e-03 & 54.7\%\\
+ linear & 1 & 1.000000 & 1.000000e-02 & 54.7\%\\
+ linear & 1 & 1.000000 & 1.000000e-01 & 64.2\%\\
+ linear & 1 & 1.000000 & 1.000000e+00 & 62.1\%\\
+ linear & 1 & 1.000000 & 1.000000e+01 & 60.0\%\\
+ linear & 1 & 1.000000 & 1.000000e+02 & 60.5\%\\
+ linear & 1 & 1.000000 & 1.000000e+03 & 60.5\%\\
+ linear & 1 & 2.000000 & 1.000000e-03 & 54.7\%\\
+ linear & 1 & 2.000000 & 1.000000e-02 & 54.7\%\\
+ linear & 1 & 2.000000 & 1.000000e-01 & 64.2\%\\
+ linear & 1 & 2.000000 & 1.000000e+00 & 62.1\%\\
+ linear & 1 & 2.000000 & 1.000000e+01 & 60.0\%\\
+ linear & 1 & 2.000000 & 1.000000e+02 & 60.5\%\\
+ linear & 1 & 2.000000 & 1.000000e+03 & 60.5\%\\
+ poly & 1 & 0.100000 & 1.000000e-03 & 54.7\%\\
+ poly & 1 & 0.100000 & 1.000000e-02 & 54.7\%\\
+ poly & 1 & 0.100000 & 1.000000e-01 & 54.7\%\\
+ poly & 1 & 0.100000 & 1.000000e+00 & 64.2\%\\
+ poly & 1 & 0.100000 & 1.000000e+01 & 62.1\%\\
+ poly & 1 & 0.100000 & 1.000000e+02 & 60.0\%\\
+ poly & 1 & 0.100000 & 1.000000e+03 & 60.5\%\\
+ poly & 1 & 1.000000 & 1.000000e-03 & 54.7\%\\
+ poly & 1 & 1.000000 & 1.000000e-02 & 54.7\%\\
+ poly & 1 & 1.000000 & 1.000000e-01 & 64.2\%\\
+ poly & 1 & 1.000000 & 1.000000e+00 & 62.1\%\\
+\end{tabular}
+\end{table}
+\begin{table}
+ \begin{tabular}{l*{5}{c}r}
+ kernel & degree & gamma & C & Accuracy\\
+ \hline
+ poly & 1 & 1.000000 & 1.000000e+01 & 60.0\%\\
+ poly & 1 & 1.000000 & 1.000000e+02 & 60.5\%\\
+ poly & 1 & 1.000000 & 1.000000e+03 & 60.5\%\\
+ poly & 1 & 2.000000 & 1.000000e-03 & 54.7\%\\
+ poly & 1 & 2.000000 & 1.000000e-02 & 58.9\%\\
+ poly & 1 & 2.000000 & 1.000000e-01 & 67.9\%\\
+ poly & 1 & 2.000000 & 1.000000e+00 & 61.1\%\\
+ poly & 1 & 2.000000 & 1.000000e+01 & 60.5\%\\
+ poly & 1 & 2.000000 & 1.000000e+02 & 60.5\%\\
+ poly & 1 & 2.000000 & 1.000000e+03 & 60.5\%\\
+ poly & 2 & 0.100000 & 1.000000e-03 & 54.7\%\\
+ poly & 2 & 0.100000 & 1.000000e-02 & 56.3\%\\
+ poly & 2 & 0.100000 & 1.000000e-01 & 63.2\%\\
+ poly & 2 & 0.100000 & 1.000000e+00 & 65.3\%\\
+ poly & 2 & 0.100000 & 1.000000e+01 & 64.7\%\\
+ poly & 2 & 0.100000 & 1.000000e+02 & 64.7\%\\
+ poly & 2 & 0.100000 & 1.000000e+03 & 64.7\%\\
+ poly & 2 & 1.000000 & 1.000000e-03 & 61.6\%\\
+ poly & 2 & 1.000000 & 1.000000e-02 & 66.3\%\\
+ poly & 2 & 1.000000 & 1.000000e-01 & 64.7\%\\
+ poly & 2 & 1.000000 & 1.000000e+00 & 64.7\%\\
+ poly & 2 & 1.000000 & 1.000000e+01 & 64.7\%\\
+ poly & 2 & 1.000000 & 1.000000e+02 & 64.7\%\\
+ poly & 2 & 1.000000 & 1.000000e+03 & 64.7\%\\
+ poly & 2 & 2.000000 & 1.000000e-03 & 68.9\%\\
+ poly & 2 & 2.000000 & 1.000000e-02 & 64.2\%\\
+ poly & 2 & 2.000000 & 1.000000e-01 & 64.2\%\\
+ poly & 2 & 2.000000 & 1.000000e+00 & 64.2\%\\
+ poly & 2 & 2.000000 & 1.000000e+01 & 64.2\%\\
+ poly & 2 & 2.000000 & 1.000000e+02 & 64.2\%\\
+ poly & 2 & 2.000000 & 1.000000e+03 & 64.2\%\\
+ poly & 3 & 0.100000 & 1.000000e-03 & 55.8\%\\
+ poly & 3 & 0.100000 & 1.000000e-02 & 59.5\%\\
+ poly & 3 & 0.100000 & 1.000000e-01 & 67.9\%\\
+ poly & 3 & 0.100000 & 1.000000e+00 & 66.3\%\\
+ poly & 3 & 0.100000 & 1.000000e+01 & 66.3\%\\
+ poly & 3 & 0.100000 & 1.000000e+02 & 66.3\%\\
+ poly & 3 & 0.100000 & 1.000000e+03 & 66.3\%\\
+ poly & 3 & 1.000000 & 1.000000e-03 & 65.8\%\\
+ poly & 3 & 1.000000 & 1.000000e-02 & 65.8\%\\
+ poly & 3 & 1.000000 & 1.000000e-01 & 65.8\%\\
+ poly & 3 & 1.000000 & 1.000000e+00 & 65.8\%\\
+ poly & 3 & 1.000000 & 1.000000e+01 & 65.8\%\\
+ poly & 3 & 1.000000 & 1.000000e+02 & 65.8\%\\
+ poly & 3 & 1.000000 & 1.000000e+03 & 65.8\%\\
+ poly & 3 & 2.000000 & 1.000000e-03 & 66.3\%\\
+ poly & 3 & 2.000000 & 1.000000e-02 & 66.3\%\\
+ poly & 3 & 2.000000 & 1.000000e-01 & 66.3\%\\
+ poly & 3 & 2.000000 & 1.000000e+00 & 66.3\%\\
+ poly & 3 & 2.000000 & 1.000000e+01 & 66.3\%\\
+ poly & 3 & 2.000000 & 1.000000e+02 & 66.3\%\\
+ poly & 3 & 2.000000 & 1.000000e+03 & 66.3\%\\
+ poly & 4 & 0.100000 & 1.000000e-03 & 57.4\%\\
+\end{tabular}
+\end{table}
+\begin{table}
+ \begin{tabular}{l*{5}{c}r}
+ kernel & degree & gamma & C & Accuracy\\
+ \hline
+ poly & 4 & 0.100000 & 1.000000e-02 & 66.8\%\\
+ poly & 4 & 0.100000 & 1.000000e-01 & 65.8\%\\
+ poly & 4 & 0.100000 & 1.000000e+00 & 65.8\%\\
+ poly & 4 & 0.100000 & 1.000000e+01 & 65.8\%\\
+ poly & 4 & 0.100000 & 1.000000e+02 & 65.8\%\\
+ poly & 4 & 0.100000 & 1.000000e+03 & 65.8\%\\
+ poly & 4 & 1.000000 & 1.000000e-03 & 68.4\%\\
+ poly & 4 & 1.000000 & 1.000000e-02 & 68.4\%\\
+ poly & 4 & 1.000000 & 1.000000e-01 & 68.4\%\\
+ poly & 4 & 1.000000 & 1.000000e+00 & 68.4\%\\
+ poly & 4 & 1.000000 & 1.000000e+01 & 68.4\%\\
+ poly & 4 & 1.000000 & 1.000000e+02 & 68.4\%\\
+ poly & 4 & 1.000000 & 1.000000e+03 & 68.4\%\\
+ poly & 4 & 2.000000 & 1.000000e-03 & 67.9\%\\
+ poly & 4 & 2.000000 & 1.000000e-02 & 67.9\%\\
+ poly & 4 & 2.000000 & 1.000000e-01 & 67.9\%\\
+ poly & 4 & 2.000000 & 1.000000e+00 & 67.9\%\\
+ poly & 4 & 2.000000 & 1.000000e+01 & 67.9\%\\
+ poly & 4 & 2.000000 & 1.000000e+02 & 67.9\%\\
+ poly & 4 & 2.000000 & 1.000000e+03 & 67.9\%\\
+ poly & 5 & 0.100000 & 1.000000e-03 & 61.1\%\\
+ poly & 5 & 0.100000 & 1.000000e-02 & 67.9\%\\
+ poly & 5 & 0.100000 & 1.000000e-01 & 67.4\%\\
+ poly & 5 & 0.100000 & 1.000000e+00 & 67.4\%\\
+ poly & 5 & 0.100000 & 1.000000e+01 & 67.4\%\\
+ poly & 5 & 0.100000 & 1.000000e+02 & 67.4\%\\
+ poly & 5 & 0.100000 & 1.000000e+03 & 67.4\%\\
+ poly & 5 & 1.000000 & 1.000000e-03 & 66.3\%\\
+ poly & 5 & 1.000000 & 1.000000e-02 & 66.3\%\\
+ poly & 5 & 1.000000 & 1.000000e-01 & 66.3\%\\
+ poly & 5 & 1.000000 & 1.000000e+00 & 66.3\%\\
+ poly & 5 & 1.000000 & 1.000000e+01 & 66.3\%\\
+ poly & 5 & 1.000000 & 1.000000e+02 & 66.3\%\\
+ poly & 5 & 1.000000 & 1.000000e+03 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e-03 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e-02 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e-01 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e+00 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e+01 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e+02 & 66.3\%\\
+ poly & 5 & 2.000000 & 1.000000e+03 & 66.3\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e-03 & 54.7\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e-02 & 54.7\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e-01 & 54.7\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e+00 & 54.7\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e+01 & 52.1\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e+02 & 48.9\%\\
+ sigmoid & 1 & 0.100000 & 1.000000e+03 & 48.9\%\\
+ sigmoid & 1 & 1.000000 & 1.000000e-03 & 54.7\%\\
+ sigmoid & 1 & 1.000000 & 1.000000e-02 & 54.7\%\\
+ sigmoid & 1 & 1.000000 & 1.000000e-01 & 54.7\%\\
+ sigmoid & 1 & 1.000000 & 1.000000e+00 & 54.7\%\\
+ sigmoid & 1 & 1.000000 & 1.000000e+01 & 54.7\%\\
+  \end{tabular} 
+\end{table}
+\begin{table}[t!]
+ \begin{tabular}[t!]{l*{5}{c}r}
+ kernel & degree & gamma & C & Accuracy\\
+ \hline
+ sigmoid & 1 & 1.000000 & 1.000000e+02 & 52.1\%\\
+ sigmoid & 1 & 1.000000 & 1.000000e+03 & 44.2\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e-03 & 54.7\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e-02 & 54.7\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e-01 & 54.7\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e+00 & 54.7\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e+01 & 54.7\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e+02 & 54.7\%\\
+ sigmoid & 1 & 2.000000 & 1.000000e+03 & 52.1\%\\
+\end{tabular}
+\end{table}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 REDES NEURONALES                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\FloatBarrier
+\section{Artificial Neural Networks}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{outplot04}
+        \caption{Activation Sigmoid}
+        \label{fig:Sigmoid}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{outplot03}
+        \caption{Activation binary}
+        \label{fig:binary}
+    \end{subfigure}
+    \caption{Error evolution on training proccess}\label{fig:ann}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{outplot03}
+        \caption{Activation binary}
+        \label{fig:binary}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.8\textwidth}
+        \includegraphics[width=\textwidth]{outplot02}
+        \caption{}
+        \label{fig:Sigmoid}
+    \end{subfigure}
+    \caption{Error evolution on training proccess}\label{fig:ann}
+\end{figure}
+%\section{Redes neuronales}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 CONCLUSIONS                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Conclusions}
+
+????? ????????????? ????????????? ????????????? ????????????? ????????????? 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                BIBLIOGRAFIA                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{10}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODEL D'ARTICLE                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibitem{light}
+   Jennifer~S. Light.
+   \newblock When computers were women.
+   \newblock \textit{Technology and Culture}, 40:3:455--483, juliol, 1999.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODEL DE LLIBRE                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibitem{ifrah}
+   Georges Ifrah.
+   \newblock \textit{Historia universal de las cifras}.
+   \newblock Espasa Calpe, S.A., Madrid, sisena edició, 2008.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODEL D'URL                                                                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibitem{AECC}
+   AECC-Asociaci\'on espa\~nola contra el c\'ancer. 
+   \newblock Consultado en
+   \url{https://www.aecc.es/SobreElCancer/CancerPorLocalizacion/melanoma}
+\bibitem{NAT}
+   Nature. International weekly journal of science 
+   \newblock Consultado en
+   \url{https://www.nature.com/nature/journal/v417/n6892/full/nature00766.html}.
+
+\end{thebibliography}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           APÈNDIXS  (Si n'hi ha!)                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\APPENDIX
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         LA CONFIGURACIO DEL SISTEMA                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Configuració del sistema}
+
+????? ????????????? ????????????? ????????????? ????????????? ?????????????
+
+\section{Fase d'inicialització}
+
+????? ????????????? ????????????? ????????????? ????????????? ?????????????
+
+\section{Identificació de dispositius}
+
+????? ????????????? ????????????? ????????????? ????????????? ?????????????
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               ALTRES  APÈNDIXS                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{??? ???????????? ????}
+
+????? ????????????? ????????????? ????????????? ????????????? ????????????? 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                              FI DEL DOCUMENT                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
